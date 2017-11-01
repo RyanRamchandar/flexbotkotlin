@@ -14,36 +14,32 @@ class MainActivity : AppCompatActivity() {
 
         val flexbox = findViewById<FlexboxLayout>(R.id.flexbox)
 
+        // Comment these lines to use XML layout
         flexbox.removeAllViews()
         for (i in 1..4) {
             flexbox.addView(makeSquareView(i))
         }
     }
 
-    val width = 30f
-    val height = 30f
-    val margin = 6f
+    private val widthDp = 30f
+    private val heightDp = 30f
+    private val marginDp = 6f
 
     private fun makeSquareView(number: Int): View {
 
         val scale = resources.displayMetrics.density
-        val minWidth = (width * scale).toInt()
-        val minHeight = (height * scale).toInt()
-        val margin = (margin * scale).toInt()
+        val widthPx = (widthDp * scale).toInt()
+        val heightPx = (heightDp * scale).toInt()
+        val marginPx = (marginDp * scale).toInt()
 
-        val params = FlexboxLayout.LayoutParams(
-                FlexboxLayout.LayoutParams.WRAP_CONTENT,
-                FlexboxLayout.LayoutParams.WRAP_CONTENT)
-        params.setMargins(0, 0, margin, margin)
+        val params = FlexboxLayout.LayoutParams(widthPx, heightPx)
+        params.setMargins(0, 0, marginPx, marginPx)
 
-        val routeView = TextView(this)
-        routeView.layoutParams = params
-        routeView.minWidth = minWidth
-        routeView.minHeight = minHeight
+        val view = TextView(this)
+        view.layoutParams = params
+        view.text = number.toString()
+        view.setBackgroundColor(resources.getColor(R.color.colorPrimary))
 
-        routeView.text = number.toString()
-        routeView.setBackgroundColor(resources.getColor(R.color.colorPrimary))
-
-        return routeView
+        return view
     }
 }
